@@ -34,7 +34,7 @@ jobs:
           do
             echo $RANDOM >> file
           done
-          sha256sum data > file.${{ matrix.id }}.sha256
+          sha256sum file > file.${{ matrix.id }}.sha256
 
       - uses: actions/upload-artifact@v4
         with:
