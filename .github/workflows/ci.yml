@@ -35,6 +35,8 @@ jobs:
             echo $RANDOM >> file
           done
           sha256sum file > file.${{ matrix.id }}.sha256
+          echo -n "created file hash: "
+          cat file.${{ matrix.id }}.sha256
 
       - uses: actions/upload-artifact@v4
         with:
