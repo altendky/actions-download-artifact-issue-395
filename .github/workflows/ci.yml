@@ -69,10 +69,10 @@ jobs:
           merge-multiple: true
 
       - run: |
+          cat hash-files/* > hashes
           cat hashes
 
       - run: |
-          cat hash-files/* > hashes
           DOWNLOADED_FILE_HASH=$(sha256sum file/file | cut -d ' ' -f 1)
           echo "looking for downloaded file hash: ${DOWNLOADED_FILE_HASH}"
           grep "${DOWNLOADED_FILE_HASH}" hashes
