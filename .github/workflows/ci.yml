@@ -55,13 +55,13 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4.2.1
         with:
-          name: file-*
+          pattern: file-*
           path: file/
           merge-multiple: true
 
       - uses: actions/download-artifact@v4.2.1
         with:
-          name: hash-*
+          pattern: hash-*
           path: hash-files/
           merge-multiple: true
 
