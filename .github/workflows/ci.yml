@@ -51,6 +51,7 @@ jobs:
   download-artifacts:
     name: download artifacts
     runs-on: ubuntu-latest
+    needs: upload-artifacts
 
     steps:
       - uses: actions/download-artifact@v4.2.1
