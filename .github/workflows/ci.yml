@@ -30,7 +30,7 @@ jobs:
     steps:
       - run: |
           RANDOM=${{ matrix.id }}
-          for _ in {1..100}
+          for _ in {1..10000}
           do
             echo $RANDOM >> file
           done
