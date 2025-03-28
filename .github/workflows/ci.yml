@@ -59,9 +59,9 @@ jobs:
       matrix:
         os:
           - runs-on: macos-13
-            sha-command: sha256 -a 256
+            sha-command: shasum -a 256
           - runs-on: macos-latest
-            sha-command: sha256 -a 256
+            sha-command: shasum -a 256
           - runs-on: ubuntu-latest
             sha-command: sha256sum
           - runs-on: ubuntu-24.04-arm
