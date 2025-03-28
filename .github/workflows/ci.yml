@@ -76,21 +76,21 @@ jobs:
       - uses: actions/download-artifact@v4.2.1
         with:
           pattern: file-*
-          path: file/
+          path: files/
           merge-multiple: ${{ matrix.merge-multiple }}
 
       - uses: actions/download-artifact@v4.2.1
         with:
           pattern: hash-*
           path: hash-files/
-          merge-multiple: true
+          merge-multiple: True
 
       - run: |
           cat hash-files/* > hashes
           cat hashes
 
       - run: |
-          for file in $(find tmp -type f)
+          for file in $(find files/ -type f)
           do
             DOWNLOADED_FILE_HASH=$(${{ matrix.os.sha-command }} ${file} | cut -d ' ' -f 1)
             echo "looking for downloaded file hash: ${DOWNLOADED_FILE_HASH}"
