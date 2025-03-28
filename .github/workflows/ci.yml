@@ -70,13 +70,13 @@ jobs:
             sha-command: sha256sum
 
     steps:
-      - uses: actions/download-artifact@v4.1.0
+      - uses: actions/download-artifact@v4.2.1
         with:
           pattern: file-*
           path: file/
           merge-multiple: true
 
-      - uses: actions/download-artifact@v4.1.0
+      - uses: actions/download-artifact@v4.2.1
         with:
           pattern: hash-*
           path: hash-files/
