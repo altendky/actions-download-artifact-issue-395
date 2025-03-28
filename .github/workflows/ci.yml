@@ -57,6 +57,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        merge-multiple:
+          - true
+          - false
         os:
           - runs-on: macos-13
             sha-command: shasum -a 256
@@ -74,7 +77,7 @@ jobs:
         with:
           pattern: file-*
           path: file/
-          merge-multiple: true
+          merge-multiple: ${{ matrix.merge-multiple }}
 
       - uses: actions/download-artifact@v4.2.1
         with:
@@ -87,6 +90,9 @@ jobs:
           cat hashes
 
       - run: |
-          DOWNLOADED_FILE_HASH=$(${{ matrix.os.sha-command }} file/file | cut -d ' ' -f 1)
-          echo "looking for downloaded file hash: ${DOWNLOADED_FILE_HASH}"
-          grep "${DOWNLOADED_FILE_HASH}" hashes
+          for file in $(find tmp -type f)
+          do
+            DOWNLOADED_FILE_HASH=$(${{ matrix.os.sha-command }} ${file} | cut -d ' ' -f 1)
+            echo "looking for downloaded file hash: ${DOWNLOADED_FILE_HASH}"
+            grep "${DOWNLOADED_FILE_HASH}" hashes
+          done
