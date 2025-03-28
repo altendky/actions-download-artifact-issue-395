@@ -52,8 +52,22 @@ jobs:
 
   download-artifacts:
     name: download artifacts
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os.runs-on }}
     needs: upload-artifacts
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - runs-on: macos-13
+            sha-command: sha256 -a 256
+          - runs-on: macos-latest
+            sha-command: sha256 -a 256
+          - runs-on: ubuntu-latest
+            sha-command: sha256sum
+          - runs-on: ubuntu-24.04-arm
+            sha-command: sha256sum
+          - runs-on: windows-latest
+            sha-command: sha256sum
 
     steps:
       - uses: actions/download-artifact@v4.1.0
@@ -73,6 +87,6 @@ jobs:
           cat hashes
 
       - run: |
-          DOWNLOADED_FILE_HASH=$(sha256sum file/file | cut -d ' ' -f 1)
+          DOWNLOADED_FILE_HASH=$(${{ matrix.os.sha-command }} file/file | cut -d ' ' -f 1)
           echo "looking for downloaded file hash: ${DOWNLOADED_FILE_HASH}"
           grep "${DOWNLOADED_FILE_HASH}" hashes
